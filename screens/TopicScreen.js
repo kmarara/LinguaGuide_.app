@@ -1,23 +1,28 @@
 // screens/TopicScreen.js
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import lessons from '../lessons';
 
 const TopicScreen = ({ route }) => {
   const { topic } = route.params;
+  const lesson = lessons[topic];
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>{topic}</Text>
-      <Text style={styles.content}>Content for {topic} will go here.</Text>
-    </View>
+      <Text style={styles.content}>{lesson.content}</Text>
+      <Text style={styles.examplesTitle}>Examples:</Text>
+      {lesson.examples.map((example, index) => (
+        <Text key={index} style={styles.example}>{example}</Text>
+      ))}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 20,
     backgroundColor: '#f0f8ff',
   },
   title: {
@@ -27,8 +32,16 @@ const styles = StyleSheet.create({
   },
   content: {
     fontSize: 16,
-    textAlign: 'center',
-    padding: 20,
+    marginBottom: 10,
+  },
+  examplesTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+  },
+  example: {
+    fontSize: 16,
+    marginVertical: 5,
   },
 });
 
